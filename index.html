@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weatherlicious!</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherWise</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <h1>WeatherWise ☀️☁️❄️</h1>
 
-    <header>
-        <h1>Weatherlicious!</h1>
-        <p>Discover the weather in any city worldwide!</p>
-        <input type="text" id="city-search" placeholder="Enter City Name">
-        <button onclick="getWeather()">Search Weather</button>
-    </header>
+  <input type="text" id="search-country" placeholder="Search by Country">
+  <button id="search-button">Search</button>
 
-    <main>
-        <div id="current-weather">
-            <h2><span id="city-name"></span> Weather</h2>
-            <img id="weather-icon" src="">
-            <p id="weather-description"></p>
-            <p id="temperature"></p>
-            <p id="feels-like"></p>
-            <p id="humidity"></p>
-            <p id="wind-speed"></p>
-        </div>
+  <div id="weather-data">
+    <h2 id="city-name"></h2>
+    <img id="weather-icon" src="" alt="">
+    <p id="current-temp"></p>
+    <p id="weather-desc"></p>
+    <div id="forecast">
+      <h3>Forecast for the next 3 days:</h3>
+      <ul id="forecast-list"></ul>
+    </div>
+    <div id="additional-info">
+      <h3>Additional Information:</h3>
+      <ul>
+        <li>Feels Like: <span id="feels-like"></span></li>
+        <li>Humidity: <span id="humidity"></span></li>
+        <li>Wind Speed: <span id="wind-speed"></span></li>
+        <li>Sunrise: <span id="sunrise"></span></li>
+        <li>Sunset: <span id="sunset"></span></li>
+      </ul>
+    </div>
+  </div>
 
-        <div id="forecast">
-            <h2>5-Day Forecast</h2>
-            <ul id="forecast-list"></ul>
-        </div>
-    </main>
+  <p id="error-message"></p>
 
-    <footer>
-        Powered by OpenWeatherMap
-    </footer>
-
-    <script src="index.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
