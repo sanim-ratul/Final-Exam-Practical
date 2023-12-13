@@ -32,3 +32,55 @@ body {
     font-size: 20px;
     font-weight: bold;
   }
+  
+  #weather-desc {
+    margin-bottom: 15px;
+  }
+  
+  #forecast ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #forecast li {
+    margin-bottom: 5px;
+  }
+  
+  #additional-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #additional-info li span {
+    font-weight: bold;
+  }
+  
+  /* Dynamic weather icon based on condition */
+  .sunny {
+    background-image: url("images/sun.png");
+  }
+  
+  .cloudy {
+    background-image: url("images/cloud.png");
+  }
+  
+  .rainy {
+    background-image: url("images/rain.png");
+  }
+  
+  .stormy {
+    background-image: url("images/storm.png");
+  }
+  
+  #weather-icon {
+    background-size: cover;
+    border-radius: 50%;
+  }
+  
+  #error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+  }
