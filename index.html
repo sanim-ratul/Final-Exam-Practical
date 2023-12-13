@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weatherlicious!</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    
+
+    <header>
+        <h1>Weatherlicious!</h1>
+        <p>Discover the weather in any city worldwide!</p>
+        <input type="text" id="city-search" placeholder="Enter City Name">
+        <button onclick="getWeather()">Search Weather</button>
+    </header>
+
+    <main>
+        <div id="current-weather">
+            <h2><span id="city-name"></span> Weather</h2>
+            <img id="weather-icon" src="">
+            <p id="weather-description"></p>
+            <p id="temperature"></p>
+            <p id="feels-like"></p>
+            <p id="humidity"></p>
+            <p id="wind-speed"></p>
+        </div>
+
+        <div id="forecast">
+            <h2>5-Day Forecast</h2>
+            <ul id="forecast-list"></ul>
+        </div>
+    </main>
+
+    <footer>
+        Powered by OpenWeatherMap
+    </footer>
+
+    <script src="index.js"></script>
 </body>
 </html>
