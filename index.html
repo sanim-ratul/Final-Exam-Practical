@@ -1,40 +1,154 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WeatherWise</title>
-  <link rel="stylesheet" href="index.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .search-box input[type="text"] {
+      width: 300px;
+      height: 40px;
+      border: none;
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    .search-box button {
+      width: 80px;
+      height: 40px;
+      border: none;
+      border-radius: 20px;
+      background-color: #2196f3;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .weather-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .weather-box h1 {
+      font-size: 36px;
+      color: #333;
+    }
+
+    .weather-box img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .weather-box p {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .error {
+      color: red;
+      font-size: 24px;
+    }
+  </style>
 </head>
 <body>
-  <h1>WeatherWise ☀️☁️❄️</h1>
-
-  <input type="text" id="search-country" placeholder="Search by Country">
-  <button id="search-button">Search</button>
-
-  <div id="weather-data">
-    <h2 id="city-name"></h2>
-    <img id="weather-icon" src="" alt="">
-    <p id="current-temp"></p>
-    <p id="weather-desc"></p>
-    <div id="forecast">
-      <h3>Forecast for the next 3 days:</h3>
-      <ul id="forecast-list"></ul>
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="country" placeholder="Enter a country name">
+      <button id="search">Search</button>
     </div>
-    <div id="additional-info">
-      <h3>Additional Information:</h3>
-      <ul>
-        <li>Feels Like: <span id="feels-like"></span></li>
-        <li>Humidity: <span id="humidity"></span></li>
-        <li>Wind Speed: <span id="wind-speed"></span></li>
-        <li>Sunrise: <span id="sunrise"></span></li>
-        <li>Sunset: <span id="sunset"></span></li>
-      </ul>
+    <div class="weather-box" id="weather-box">
+      <!-- Weather data will be displayed here -->
     </div>
   </div>
+  <script>
+    // Replace this with your own API key
+    const API_KEY = "5a4a244b150449ea4c8ac5fe159deb2a";
 
-  <p id="error-message"></p>
+    // Get the elements from the document
+    const countryInput = document.getElementById("country");
+    const searchButton = document.getElementById("search");
+    const weatherBox = document.getElementById("weather-box");
 
-  <script src="index.js"></script>
+    // Add an event listener to the search button
+    searchButton.addEventListener("click", function() {
+      // Get the country name from the input
+      const country = countryInput.value;
+
+      // Clear the previous weather data
+      weatherBox.innerHTML = "";
+
+      // Check if the country name is not empty
+      if (country) {
+        // Call the OpenWeatherMap API to get the weather data
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${country}&units=metric&appid=${API_KEY}`)
+          .then(response => response.json())
+          .then(data => {
+            // Check if the API call was successful
+            if (data.cod === 200) {
+              // Get the relevant data from the response
+              const name = data.name;
+              const temp = data.main.temp;
+              const desc = data.weather[0].description;
+              const icon = data.weather[0].icon;
+
+              // Create the HTML elements to display the weather data
+              const nameElement = document.createElement("h1");
+              nameElement.textContent = name;
+
+              const tempElement = document.createElement("p");
+              tempElement.textContent = `${temp} °C`;
+
+              const descElement = document.createElement("p");
+              descElement.textContent = desc;
+
+              const iconElement = document.createElement("img");
+              iconElement.src = `http://openweathermap.org/img/wn/${icon}.png`;
+
+              // Append the elements to the weather box
+              weatherBox.appendChild(nameElement);
+              weatherBox.appendChild(tempElement);
+              weatherBox.appendChild(descElement);
+              weatherBox.appendChild(iconElement);
+            } else {
+              // Display an error message
+              const errorElement = document.createElement("p");
+              errorElement.classList.add("error");
+              errorElement.textContent = "Sorry, no weather data found for that country.";
+              weatherBox.appendChild(errorElement);
+            }
+          })
+          .catch(error => {
+            // Display an error message
+            const errorElement = document.createElement("p");
+            errorElement.classList.add("error");
+            errorElement.textContent = "Sorry, something went wrong. Please try again later.";
+            weatherBox.appendChild(errorElement);
+          });
+      } else {
+        // Display an error message
+        const errorElement = document.createElement("p");
+        errorElement.classList.add("error");
+        errorElement.textContent = "Please enter a country name.";
+        weatherBox.appendChild(errorElement);
+      }
+    });
+  </script>
 </body>
 </html>
